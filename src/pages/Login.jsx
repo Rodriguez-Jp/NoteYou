@@ -6,7 +6,7 @@ function Login() {
       <div className="w-4/5 md:w-1/2 lg:w-1/3 mx-auto ">
         <div className="mt-12">
           <h1 className="text-3xl font-light capitalize text-center">
-            Login to access your notes
+            Login to access your <span className="font-normal">notes</span>
           </h1>
           <form className="mt-10 bg-white p-5 rounded-lg ">
             <label htmlFor="email" className="block font-semibold text-lg">
