@@ -1,6 +1,15 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Sending");
+  };
+
   return (
     <>
       <div className="w-4/5 md:w-1/2 lg:w-1/3 mx-auto ">
@@ -8,7 +17,10 @@ function Login() {
           <h1 className="text-3xl font-light capitalize text-center">
             Login to access your <span className="font-normal">notes</span>
           </h1>
-          <form className="mt-10 bg-white p-5 rounded-lg ">
+          <form
+            className="mt-10 bg-white p-5 rounded-lg "
+            onSubmit={handleSubmit}
+          >
             <label htmlFor="email" className="block font-semibold text-lg">
               Email
             </label>
@@ -16,6 +28,9 @@ function Login() {
               type="email"
               id="email"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label
               htmlFor="password"
@@ -27,6 +42,9 @@ function Login() {
               type="password"
               id="password"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <input
               type="submit"

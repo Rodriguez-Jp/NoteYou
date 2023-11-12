@@ -1,6 +1,63 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validates if the fields are not empty
+    if (
+      [
+        name.trim(),
+        email.trim(),
+        password.trim(),
+        repeatPassword.trim(),
+      ].includes("")
+    ) {
+      toast.error("Some fields are empty", {
+        id: "empty-fields",
+      });
+      return;
+    }
+
+    // Validates the email
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+    if (!emailRegex.test(email)) {
+      toast.error("Invalid email", {
+        id: "invalid-email",
+      });
+      return;
+    }
+
+    //Validates strong password
+    const passwordRegex =
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must contain 8 characters, one uppercase, one number and one symbol",
+        { id: "not-strong-password" }
+      );
+      return;
+    }
+
+    // Validates the confirmation of the password
+    if (password !== repeatPassword) {
+      toast.error("Passwords are not equal", {
+        id: "invalid-passwords",
+      });
+      return;
+    }
+
+    console.log("sending");
+  };
+
   return (
     <>
       <div className="w-4/5 md:w-1/2 lg:w-1/3 mx-auto ">
@@ -8,7 +65,10 @@ function Register() {
           <h1 className="text-3xl font-light capitalize text-center">
             register to begin taking <span className="font-normal">notes</span>
           </h1>
-          <form className="mt-10 bg-white p-5 rounded-lg ">
+          <form
+            className="mt-10 bg-white p-5 rounded-lg"
+            onSubmit={handleSubmit}
+          >
             <label htmlFor="name" className="block font-semibold text-lg">
               Name
             </label>
@@ -16,6 +76,9 @@ function Register() {
               type="text"
               id="name"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <label htmlFor="email" className="block font-semibold text-lg mt-2">
               Email
@@ -24,6 +87,9 @@ function Register() {
               type="email"
               id="email"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label
               htmlFor="password"
@@ -35,6 +101,9 @@ function Register() {
               type="password"
               id="password"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <label
               htmlFor="confirm-password"
@@ -46,6 +115,9 @@ function Register() {
               type="password"
               id="confirm-password"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Confirm Your Password"
+              value={repeatPassword}
+              onChange={(e) => setRepeatPassword(e.target.value)}
             />
             <input
               type="submit"

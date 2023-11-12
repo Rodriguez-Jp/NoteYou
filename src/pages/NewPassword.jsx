@@ -14,6 +14,7 @@ function NewPassword() {
               type="email"
               id="email"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Your New Password"
             />
             <label
               htmlFor="password"
@@ -25,6 +26,7 @@ function NewPassword() {
               type="password"
               id="password"
               className="w-full p-1 border mt-2 rounded"
+              placeholder="Confirm Your New Password"
             />
             <input
               type="submit"
