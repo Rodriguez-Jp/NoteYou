@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 function Register() {
   const [name, setName] = useState("");
@@ -8,7 +9,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validates if the fields are not empty
@@ -37,15 +38,15 @@ function Register() {
     }
 
     //Validates strong password
-    const passwordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-    if (!passwordRegex.test(password)) {
-      toast.error(
-        "Password must contain 8 characters, one uppercase, one number and one symbol",
-        { id: "not-strong-password" }
-      );
-      return;
-    }
+    // const passwordRegex =
+    //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    // if (!passwordRegex.test(password)) {
+    //   toast.error(
+    //     "Password must contain 8 characters, one uppercase, one number and one symbol",
+    //     { id: "not-strong-password" }
+    //   );
+    //   return;
+    // }
 
     // Validates the confirmation of the password
     if (password !== repeatPassword) {
@@ -55,7 +56,20 @@ function Register() {
       return;
     }
 
-    console.log("sending");
+    //When all validations pass, submit the new user to backend
+
+    try {
+      const { data } = await axios.post("http://localhost:4000/api/users", {
+        name,
+        email,
+        password,
+      });
+
+      toast.success(data.msg);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("Done");
   };
 
   return (
