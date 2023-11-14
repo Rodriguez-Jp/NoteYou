@@ -59,15 +59,23 @@ function Register() {
     //When all validations pass, submit the new user to backend
 
     try {
-      const { data } = await axios.post("http://localhost:4000/api/users", {
-        name,
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_API_URL}/users`,
+        {
+          name,
+          email,
+          password,
+        }
+      );
 
       toast.success(data.msg);
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setRepeatPassword("");
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.msg);
     }
     console.log("Done");
   };
