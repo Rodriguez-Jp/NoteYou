@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Alert from "../components/Alert";
 
@@ -8,6 +8,7 @@ function ConfirmAccount() {
   const [error, setError] = useState(false);
   const [isBusy, setIsBusy] = useState(true);
 
+  //Try to confirm the user with the given id
   useEffect(() => {
     const confirmAccount = async () => {
       try {
@@ -18,6 +19,7 @@ function ConfirmAccount() {
         console.log(response);
         setIsBusy(false);
       } catch (error) {
+        //In case token is duplicated, set error to true
         setError(true);
         setIsBusy(false);
       }
@@ -33,8 +35,10 @@ function ConfirmAccount() {
             Confirm your account and begin taking{" "}
             <span className="font-normal">notes</span>
           </h1>
+          {/* isBusy state to avoid doble render and wait until useEffect fetch */}
           {isBusy ? null : (
             <section>
+              {/* Conditional rendering based on error state */}
               {error ? (
                 <Alert msg={{ err: true, message: "Invalid Token" }} />
               ) : (

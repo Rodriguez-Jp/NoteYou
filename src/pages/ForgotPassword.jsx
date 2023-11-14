@@ -1,6 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function ForgotPassword() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    //Send the request for the email
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/users/forgot-password`,
+        { email }
+      );
+      toast.success("Instructions sent, check your email!");
+      setEmail("");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (error) {
+      toast.error("There was an error");
+    }
+  };
   return (
     <>
       <div className="w-4/5 md:w-1/2 lg:w-1/3 mx-auto ">
@@ -9,7 +33,10 @@ function ForgotPassword() {
             We will send you a step by step guide to recover your{" "}
             <span className="font-normal">Account</span>
           </h1>
-          <form className="mt-10 bg-white p-5 rounded-lg ">
+          <form
+            className="mt-10 bg-white p-5 rounded-lg"
+            onSubmit={handleSubmit}
+          >
             <label htmlFor="email" className="block font-semibold text-lg">
               Email
             </label>
@@ -18,6 +45,8 @@ function ForgotPassword() {
               id="email"
               className="w-full p-1 border mt-2 rounded"
               placeholder="Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
