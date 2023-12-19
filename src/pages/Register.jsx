@@ -37,6 +37,7 @@ function Register() {
       return;
     }
 
+    //TODO: implement strong password validation
     //Validates strong password
     // const passwordRegex =
     //   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;

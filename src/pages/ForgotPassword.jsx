@@ -10,6 +10,12 @@ function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    //If email is empty
+    if (email.trim() === "") {
+      toast.error("Email cannot be empty");
+      return;
+    }
+
     //Send the request for the email
     try {
       await axios.post(
