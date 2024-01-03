@@ -1,13 +1,34 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import axiosClient from "../config/axiosClient";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Sending");
+
+    // Validates if the fields are not empty
+    if ([email.trim(), password.trim()].includes("")) {
+      toast.error("Some fields are empty", {
+        id: "empty-fields",
+      });
+      return;
+    }
+
+    //Query the backend for login
+    try {
+      const { data } = await axiosClient.post("/users/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
   };
 
   return (
