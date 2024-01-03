@@ -9,7 +9,7 @@ const Alert = ({ msg }) => {
         </section>
       ) : (
         <>
-          <section className="w-full mt-5 p-5 shadow-lg rounded-lg bg-green-400 text-white text-center font-bold">
+          <section className="w-full mt-5 p-5 shadow-lg rounded-lg bg-green-400 text-white text-center font-bold text-lg">
             <p>{msg.message}</p>
           </section>
           <div className="p-2 mt-5 mx-auto text-center text-sky-900">

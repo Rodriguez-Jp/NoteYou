@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axiosClient from "../config/axiosClient";
 
 function Register() {
   const [name, setName] = useState("");
@@ -60,14 +60,11 @@ function Register() {
     //When all validations pass, submit the new user to backend
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/users`,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const { data } = await axiosClient.post(`/users`, {
+        name,
+        email,
+        password,
+      });
 
       toast.success(data.msg);
 

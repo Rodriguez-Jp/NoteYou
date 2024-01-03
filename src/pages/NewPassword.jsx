@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import toast from "react-hot-toast";
 import Alert from "../components/Alert";
+import axiosClient from "../config/axiosClient";
 
 function NewPassword() {
   const navigate = useNavigate();
@@ -15,9 +15,7 @@ function NewPassword() {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        await axios.get(
-          `${import.meta.env.VITE_API_URL}/users/forgot-password/${token}`
-        );
+        await axiosClient.get(`/users/forgot-password/${token}`);
         setTokenValid(true);
         setIsBusy(false);
       } catch (error) {
@@ -54,10 +52,9 @@ function NewPassword() {
 
     //All validations passed, send the request
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/users/forgot-password/${token}`,
-        { password: newPassword }
-      );
+      await axiosClient.post(`/users/forgot-password/${token}`, {
+        password: newPassword,
+      });
       toast.success("Password changed succesfully");
       setTimeout(() => {
         navigate("/");

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "../config/axiosClient";
 import Alert from "../components/Alert";
 
 function ConfirmAccount() {
@@ -12,9 +12,7 @@ function ConfirmAccount() {
   useEffect(() => {
     const confirmAccount = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/users/confirm/${id}`
-        );
+        const response = await axiosClient.get(`/users/confirm/${id}`);
 
         console.log(response);
         setIsBusy(false);

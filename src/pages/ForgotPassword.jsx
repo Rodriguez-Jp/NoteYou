@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import axiosClient from "../config/axiosClient";
 import toast from "react-hot-toast";
 
 function ForgotPassword() {
@@ -18,10 +18,7 @@ function ForgotPassword() {
 
     //Send the request for the email
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/users/forgot-password`,
-        { email }
-      );
+      await axiosClient.post(`/users/forgot-password`, { email });
       toast.success("Instructions sent, check your email!");
       setEmail("");
       setTimeout(() => {
