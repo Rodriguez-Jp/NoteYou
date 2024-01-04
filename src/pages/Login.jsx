@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import axiosClient from "../config/axiosClient";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { setAuth } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +29,7 @@ function Login() {
       });
 
       localStorage.setItem("token", data.token);
+      setAuth(data);
     } catch (error) {
       toast.error(error.response.data.msg);
     }
