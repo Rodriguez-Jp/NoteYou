@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import Notes from "./pages/Notes";
+import PrivateRoute from "./layouts/PrivateRoute";
 
 function App() {
   return (
@@ -20,6 +22,10 @@ function App() {
               <Route path="forgot-password" element={<ForgotPassword />} />
               <Route path="forgot-password/:token" element={<NewPassword />} />
               <Route path="confirm/:id" element={<ConfirmAccount />} />
+            </Route>
+
+            <Route path="/notes" element={<PrivateRoute />}>
+              <Route index element={<Notes />} />
             </Route>
           </Routes>
         </AuthProvider>

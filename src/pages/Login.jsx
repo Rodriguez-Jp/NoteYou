@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import axiosClient from "../config/axiosClient";
@@ -7,6 +7,7 @@ import axiosClient from "../config/axiosClient";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const { setAuth } = useAuth();
 
@@ -30,6 +31,7 @@ function Login() {
 
       localStorage.setItem("token", data.token);
       setAuth(data);
+      navigate("/notes");
     } catch (error) {
       toast.error(error.response.data.msg);
     }
