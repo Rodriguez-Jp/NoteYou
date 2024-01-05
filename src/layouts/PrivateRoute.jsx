@@ -1,4 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar";
 import useAuth from "../hooks/useAuth";
 
 const PrivateRoute = () => {
@@ -12,7 +14,25 @@ const PrivateRoute = () => {
     );
   }
 
-  return <>{auth._id ? <Outlet /> : <Navigate to={"/"} />}</>;
+  return (
+    <>
+      {auth._id ? (
+        <div>
+          <Header />
+
+          <div>
+            <Sidebar />
+
+            <main>
+              <Outlet />
+            </main>
+          </div>
+        </div>
+      ) : (
+        <Navigate to={"/"} />
+      )}
+    </>
+  );
 };
 
 export default PrivateRoute;
