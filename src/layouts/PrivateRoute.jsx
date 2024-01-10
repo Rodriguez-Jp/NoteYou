@@ -20,10 +20,10 @@ const PrivateRoute = () => {
         <div>
           <Header />
 
-          <div>
+          <div className="md:flex md:min-h-screen">
             <Sidebar />
 
-            <main>
+            <main className="flex-1">
               <Outlet />
             </main>
           </div>

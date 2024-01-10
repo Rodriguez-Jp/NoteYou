@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import Notes from "./pages/Notes";
+import Trash from "./pages/Trash";
 import PrivateRoute from "./layouts/PrivateRoute";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
             <Route path="/notes" element={<PrivateRoute />}>
               <Route index element={<Notes />} />
+              <Route path="trash" element={<Trash />} />
             </Route>
           </Routes>
         </AuthProvider>
