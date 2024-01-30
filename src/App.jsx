@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
+import { NotesProvider } from "./context/NotesProvider";
 import { Toaster } from "react-hot-toast";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./pages/Login";
@@ -16,20 +17,25 @@ function App() {
     <>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<AuthLayout />}>
-              <Route index element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="forgot-password/:token" element={<NewPassword />} />
-              <Route path="confirm/:id" element={<ConfirmAccount />} />
-            </Route>
+          <NotesProvider>
+            <Routes>
+              <Route path="/" element={<AuthLayout />}>
+                <Route index element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route
+                  path="forgot-password/:token"
+                  element={<NewPassword />}
+                />
+                <Route path="confirm/:id" element={<ConfirmAccount />} />
+              </Route>
 
-            <Route path="/notes" element={<PrivateRoute />}>
-              <Route index element={<Notes />} />
-              <Route path="trash" element={<Trash />} />
-            </Route>
-          </Routes>
+              <Route path="/notes" element={<PrivateRoute />}>
+                <Route index element={<Notes />} />
+                <Route path="trash" element={<Trash />} />
+              </Route>
+            </Routes>
+          </NotesProvider>
         </AuthProvider>
       </BrowserRouter>
       <Toaster />
